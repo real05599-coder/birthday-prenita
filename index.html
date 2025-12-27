@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday 💖</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      color: #4a1c2f;
+      text-align: center;
+    }
+    .card {
+      background: rgba(255,255,255,0.9);
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 420px;
+      animation: fadeIn 1s ease;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+    input {
+      padding: 10px;
+      width: 80%;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background: #ff4f81;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #e84370;
+    }
+    .error {
+      color: #b0003a;
+      margin-top: 10px;
+      font-style: italic;
+      animation: shake 0.4s;
+    }
+    .cake {
+      font-size: 2rem;
+      margin-top: 15px;
+    }
+    .candle {
+      display: inline-block;
+      margin: 0 2px;
+      cursor: pointer;
+      animation: flicker 1s infinite;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="app"></div>
+
+  <script>
+    const app = document.getElementById('app');
+
+    function askName() {
+      app.innerHTML = `
+        <h1>Hey Beautiful 💕</h1>
+        <p>Enter your nickname to unlock something special ✨</p>
+        <input id="nameInput" placeholder="Your nickname..." />
+        <br />
+        <button onclick="checkName()">Continue 💖</button>
+        <div class="error" id="error"></div>
+      `;
+    }
+
+    function checkName() {
+      const value = document.getElementById('nameInput').value.trim().toLowerCase();
+      if (value === 'the prenita') {
+        askAge();
+      } else {
+        document.getElementById('error').innerText = 'Hmm… enter your nickname again, my love 💗';
+      }
+    }
+
+    function askAge() {
+      app.innerHTML = `
+        <h1>Hello, The Prenita 💫</h1>
+        <p>Tell me your age 🎂</p>
+        <input id="ageInput" type="number" placeholder="Your age..." />
+        <br />
+        <button onclick="showCake()">Show Surprise 🎉</button>
+      `;
+    }
+
+    function showCake() {
+      const age = parseInt(document.getElementById('ageInput').value);
+      if (!age || age <= 0 || age > 120) return;
+
+      let candles = '';
+      for (let i = 0; i < age; i++) {
+        candles += '<span class="candle" onclick="this.innerText=\"💨\"">🕯️</span>';
+      }
+
+      app.innerHTML = `
+        <h1>Happy Birthday, The Prenita 🎉💖</h1>
+        <p>Make a wish… and tap the candles to blow them ✨</p>
+        <div class="cake">🎂<br/>${candles}</div>
+        <p style="margin-top:15px;">May every smile of yours stay forever 🌸</p>
+      `;
+    }
+
+    askName();
+  </script>
+</body>
+</html>
